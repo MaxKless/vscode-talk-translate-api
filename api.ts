@@ -33,7 +33,47 @@ function handler(_req: Request) {
     "MISC.TERMS_SERVICE": "Terms of Service",
     "MISC.PRIVACY_POLICY": "Privacy Policy",
   };
-  const body = JSON.stringify(data, null, 2);
+  const dataNested = {
+    UI: {
+      SIGNIN: "Sign In",
+      SIGNUP: "Sign Up",
+      LOGOUT: "Logout",
+      PROFILE: "Profile",
+      SETTINGS: "Settings",
+    },
+    ERRORS: {
+      NETWORK: "Network Error",
+      FORBIDDEN: "You don't have permission to access this.",
+      NOT_FOUND: "Resource not found.",
+      INTERNAL_SERVER: "Internal Server Error",
+    },
+    MESSAGES: {
+      WELCOME: "Welcome to our platform!",
+      GOODBYE: "Goodbye, see you soon!",
+      SUCCESS_REGISTRATION: "Registration successful! Please log in.",
+      PASSWORD_RESET: "Password reset link has been sent to your email.",
+    },
+    PRODUCTS: {
+      ADD_TO_CART: "Add to Cart",
+      OUT_OF_STOCK: "Out of Stock",
+      DESCRIPTION: "Description",
+      REVIEW: "Write a Review",
+    },
+    PAYMENT: {
+      CHECKOUT: "Checkout",
+      SUCCESS: "Payment Successful",
+      FAILURE: "Payment Failed",
+      CANCEL: "Cancel Transaction",
+    },
+    MISC: {
+      FOOTER_COPYRIGHT: "Copyright © 2023. All rights reserved.",
+      TERMS_SERVICE: "Terms of Service",
+      PRIVACY_POLICY: "Privacy Policy",
+    },
+  };
+
+  const nested = new URLSearchParams(new URL(_req.url).search)?.get("nested");
+  const body = JSON.stringify(nested ? dataNested : data, null, 2);
   return new Response(body, {
     headers: { "content-type": "application/json; charset=utf-8" },
   });
